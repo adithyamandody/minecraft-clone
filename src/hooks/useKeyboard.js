@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 function actionByKey(key) {
   const keyActionMap = {
@@ -7,11 +7,11 @@ function actionByKey(key) {
     KeyA: 'moveLeft',
     KeyD: 'moveRight',
     Space: 'jump',
-    Digital1: 'dirt',
-    Digital2: 'grass',
-    Digital3: 'glass',
-    Digital4: 'wood',
-    Digital5: 'log',
+    Digit1: 'dirt',
+    Digit2: 'grass',
+    Digit3: 'glass',
+    Digit4: 'wood',
+    Digit5: 'log',
   };
   return keyActionMap[key];
 }
@@ -23,11 +23,11 @@ export const useKeyboard = () => {
     moveLeft: false,
     moveRight: false,
     jump: false,
-    texture1: false,
-    texture2: false,
-    texture3: false,
-    texture4: false,
-    texture5: false,
+    dirt: false,
+    grass: false,
+    glass: false,
+    wood: false,
+    log: false,
   });
 
   const handleKeyDown = useCallback((e) => {
@@ -57,12 +57,11 @@ export const useKeyboard = () => {
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
-
     return () => {
-      document.removeEventListener('keydown', handleKeyUp);
-
+      document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('keyup', handleKeyUp);
     };
   }, [handleKeyDown, handleKeyUp]);
+
   return actions;
 };
